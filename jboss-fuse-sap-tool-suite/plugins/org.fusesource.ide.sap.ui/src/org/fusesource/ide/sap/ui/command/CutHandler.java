@@ -43,7 +43,6 @@ public class CutHandler extends AbstractHandler {
 
 	@Override
 	public void setEnabled(Object evaluationContext) {
-		setBaseEnabled(false);
 		Object obj = HandlerUtil.getVariable(evaluationContext, ISources.ACTIVE_CURRENT_SELECTION_NAME);
 		if (obj instanceof IStructuredSelection) {
 			IStructuredSelection selection = (IStructuredSelection) obj;
@@ -59,11 +58,13 @@ public class CutHandler extends AbstractHandler {
 							command.append(cutToClipboardCommand);
 							command.append(createRemoveValueCommand(obj));
 							setBaseEnabled(true);
+							return;
 						}
 					}
 				}
 			}
 		}
+		setBaseEnabled(false);
 	}
 	
 	protected Command createRemoveValueCommand(Object value) {

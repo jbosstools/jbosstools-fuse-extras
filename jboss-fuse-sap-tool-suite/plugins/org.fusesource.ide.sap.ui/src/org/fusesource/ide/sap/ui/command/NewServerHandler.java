@@ -67,7 +67,6 @@ public class NewServerHandler extends AbstractHandler {
 	public void setEnabled(Object evaluationContext) {
 		Command createServerDataStoreEntryCommand = null;
 		Command createServerDataCommand = null;
-		setBaseEnabled(false);
 		Object obj = HandlerUtil.getVariable(evaluationContext, ISources.ACTIVE_CURRENT_SELECTION_NAME);
 		if (obj instanceof IStructuredSelection) {
 			obj = ((IStructuredSelection)obj).getFirstElement();
@@ -95,11 +94,13 @@ public class NewServerHandler extends AbstractHandler {
 						command.append(SetCommand.create(editingDomain, serverDataStoreEntry, RfcPackage.Literals.SERVER_DATA_STORE_ENTRY__VALUE, serverData));
 						command.append(createServerDataStoreEntryCommand);
 						setBaseEnabled(true);
+						return;
 					}
 				}
 				
 			}
 		}		
+		setBaseEnabled(false);
 	}
 	
 }

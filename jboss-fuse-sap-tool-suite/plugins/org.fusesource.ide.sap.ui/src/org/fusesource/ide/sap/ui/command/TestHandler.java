@@ -55,7 +55,6 @@ public class TestHandler extends AbstractHandler implements IHandler {
 
 	@Override
 	public void setEnabled(Object evaluationContext) {
-		setBaseEnabled(false);
 		Object obj = HandlerUtil.getVariable(evaluationContext, ISources.ACTIVE_CURRENT_SELECTION_NAME);
 		if (obj instanceof IStructuredSelection) {
 			IStructuredSelection selection = (IStructuredSelection) obj;
@@ -65,13 +64,16 @@ public class TestHandler extends AbstractHandler implements IHandler {
 					name = ((DestinationDataStoreEntryImpl) obj).getKey();
 					isDestination = true;
 					setBaseEnabled(true);
+					return;
 				} else if (obj instanceof ServerDataStoreEntryImpl) {
 					name = ((ServerDataStoreEntryImpl) obj).getKey();
 					isDestination = false;
 					setBaseEnabled(true);
+					return;
 				}
 			}
 		}
+		setBaseEnabled(false);
 	}
 
 }

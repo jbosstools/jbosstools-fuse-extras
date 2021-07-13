@@ -75,7 +75,6 @@ public class PasteHandler extends AbstractHandler {
 
 	@Override
 	public void setEnabled(Object evaluationContext) {
-		setBaseEnabled(false);
 		Object obj = HandlerUtil.getVariable(evaluationContext, ISources.ACTIVE_CURRENT_SELECTION_NAME);
 		if (obj instanceof IStructuredSelection) {
 			IStructuredSelection selection = (IStructuredSelection) obj;
@@ -91,11 +90,13 @@ public class PasteHandler extends AbstractHandler {
 							command.append(createAddValueCommand(obj, editingDomain.getClipboard()));
 							command.append(pasteFromClipboardCommand);
 							setBaseEnabled(true);
+							return;
 						}
 					}
 				}
 			}
 		}
+		setBaseEnabled(false);
 	}
 	
 	protected Command createAddValueCommand(Object owner, Collection<Object> values) {

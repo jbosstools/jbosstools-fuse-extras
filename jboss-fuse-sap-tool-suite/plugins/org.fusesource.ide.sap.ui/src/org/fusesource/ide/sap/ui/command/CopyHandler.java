@@ -43,7 +43,6 @@ public class CopyHandler extends AbstractHandler implements IHandler {
 
 	@Override
 	public void setEnabled(Object evaluationContext) {
-		setBaseEnabled(false);
 		Object obj = HandlerUtil.getVariable(evaluationContext, ISources.ACTIVE_CURRENT_SELECTION_NAME);
 		if (obj instanceof IStructuredSelection) {
 			IStructuredSelection selection = (IStructuredSelection) obj;
@@ -62,11 +61,13 @@ public class CopyHandler extends AbstractHandler implements IHandler {
 								command = new CopyDestinationDataStoreEntryToClipboard(editingDomain, destinationDataStore, destinationDataStoreEntry);
 							}
 							setBaseEnabled(true);
+							return;
 						}
 					}
 				}
 			}
 		}
+		setBaseEnabled(false);
 	}
 
 	protected boolean canCopy(IStructuredSelection selection) {

@@ -48,7 +48,6 @@ public class DeleteHandler extends AbstractHandler implements IHandler {
 	public void setEnabled(Object evaluationContext) {
 		Command deleteEntryCommand = null;
 		Command removeValueCommand = null;
-		setBaseEnabled(false);
 		Object obj = HandlerUtil.getVariable(evaluationContext, ISources.ACTIVE_CURRENT_SELECTION_NAME);
 		if (obj instanceof IStructuredSelection) {
 			IStructuredSelection selection = (IStructuredSelection) obj;
@@ -71,11 +70,13 @@ public class DeleteHandler extends AbstractHandler implements IHandler {
 							command.append(deleteEntryCommand);
 							command.append(removeValueCommand);
 							setBaseEnabled(true);
+							return;
 						}
 					}
 				}
 			}
 		}
+		setBaseEnabled(false);
 	}
 
 	protected boolean canDelete(IStructuredSelection selection) {

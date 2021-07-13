@@ -37,15 +37,16 @@ public class UndoHandler extends AbstractHandler implements IHandler, IElementUp
 
 	@Override
 	public void setEnabled(Object evaluationContext) {
-		setBaseEnabled(false);
 		Object obj = HandlerUtil.getVariable(evaluationContext, ISources.ACTIVE_PART_NAME);
 		if (obj instanceof SapConnectionsView) {
 			SapConnectionsView view = (SapConnectionsView) obj;
 			editingDomain = view.getEditingDomain();
 			if (editingDomain.getCommandStack().canUndo()) {
 				setBaseEnabled(true);
+				return;
 			}
 		}
+		setBaseEnabled(false);
 	}
 
 	@Override

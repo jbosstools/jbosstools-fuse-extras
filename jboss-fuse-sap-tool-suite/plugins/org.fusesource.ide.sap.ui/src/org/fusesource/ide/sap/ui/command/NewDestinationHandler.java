@@ -79,7 +79,6 @@ public class NewDestinationHandler extends AbstractHandler {
 	public void setEnabled(Object evaluationContext) {
 		Command createDestinationDataStoreEntryCommand = null;
 		Command createDestinationDataCommand = null;
-		setBaseEnabled(false);
 		Object obj = getActiveSelection(evaluationContext);
 		if (obj instanceof IStructuredSelection) {
 			obj = ((IStructuredSelection)obj).getFirstElement();
@@ -107,11 +106,13 @@ public class NewDestinationHandler extends AbstractHandler {
 						command.append(SetCommand.create(editingDomain, destinationDataStoreEntry, RfcPackage.Literals.DESTINATION_DATA_STORE_ENTRY__VALUE, destinationData));
 						command.append(createDestinationDataStoreEntryCommand);
 						setBaseEnabled(true);
+						return;
 					}
 				}
 				
 			}
 		}		
+		setBaseEnabled(false);
 	}
 
 	/**
